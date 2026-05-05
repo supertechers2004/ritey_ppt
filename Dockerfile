@@ -17,7 +17,6 @@ COPY alembic.ini .
 COPY alembic/ ./alembic/
 COPY backend/ ./backend/
 COPY templates/ ./templates/
-COPY media/ ./media/
 COPY start_render.sh /start.sh
 RUN chmod +x /start.sh
 
