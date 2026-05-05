@@ -85,8 +85,7 @@ app.add_middleware(
 scheduler = BackgroundScheduler()
 
 def my_job():
-    # RENDER_EXTERNAL_URL is automatically set by Render — falls back to old URL locally
-    ping_url = os.getenv("RENDER_EXTERNAL_URL", "https://ppt-ritey.onrender.com").rstrip("/")
+    ping_url = os.getenv("RENDER_EXTERNAL_URL", "https://ritey-ppt.onrender.com").rstrip("/")
     try:
         requests.get(f"{ping_url}/", timeout=10)
     except Exception:
