@@ -66,17 +66,9 @@ def get_graph_deps():
 
 app = FastAPI(lifespan = lifespan)
 
-# Build allowed origins: always include localhost, plus the deployed frontend URL if set
-_frontend_url = os.getenv("FRONTEND_URL", "https://frontend-ne8ls9ktw-durgeshs-projects-50c70767.vercel.app")
-_allowed_origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    _frontend_url,
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=_allowed_origins,
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
