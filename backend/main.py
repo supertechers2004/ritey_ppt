@@ -92,9 +92,9 @@ def my_job():
     except Exception:
         pass
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def hellow():
-    return {"status":'ok'}
+    return {"status": "ok"}
 
 # --- AUTH ENDPOINTS ---
 @app.post("/auth/register", response_model=UserResponse)
