@@ -2,12 +2,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
-import os 
+import os
 from urllib.parse import quote_plus
 load_dotenv()
 
-# DATABASE_URL = os.getenv('PPT_URL')
-DATABASE_URL = "postgresql://{}:{}@{}:{}/{}".format(
+# Use full PPT_URL if provided (e.g. Neon with sslmode=require), else build from parts
+DATABASE_URL = os.getenv("PPT_URL") or "postgresql://{}:{}@{}:{}/{}".format(
     os.getenv("DB_USER"),
     quote_plus(os.getenv("DB_PASSWORD", "")),
     os.getenv("DB_HOST", "localhost"),

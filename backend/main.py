@@ -30,7 +30,7 @@ load_dotenv()
 BASE_DIT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_DIR = os.path.join(BASE_DIT,"media")
 os.makedirs(MEDIA_DIR,exist_ok=True)
-PPT_URL = "postgresql://{}:{}@{}:{}/{}".format(
+PPT_URL = os.getenv("PPT_URL") or "postgresql://{}:{}@{}:{}/{}".format(
     os.getenv("DB_USER"),
     quote_plus(os.getenv("DB_PASSWORD", "")),
     os.getenv("DB_HOST", "localhost"),

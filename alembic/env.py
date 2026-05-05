@@ -20,19 +20,18 @@ from backend.models import *
 config = context.config
 
 DB_USER = os.getenv('DB_USER', 'postgres')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 DB_HOST = os.getenv('DB_HOST', 'localhost')
 DB_PORT = os.getenv('DB_PORT', '5433')
 DB_NAME = os.getenv('DB_NAME', 'ppt_db')
 
-if not DB_PASSWORD:
-    raise ValueError("DB_PASSWORD not found in environment variables!")
+# Use full PPT_URL if set (Neon etc.), else build from parts
+DATABASE_URL = os.getenv("PPT_URL") or "postgresql://{}:{}@{}:{}/{}".format(
+    DB_USER, quote_plus(DB_PASSWORD), DB_HOST, DB_PORT, DB_NAME
+)
 
-DATABASE_URL = f"postgresql://{DB_USER}:{quote_plus(DB_PASSWORD)}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
-print('Ritu',DATABASE_URL)
+print('DB URL', DATABASE_URL)
 DATABASE_URL = DATABASE_URL.replace('%', '%%')
-print('Ritu DATABASE_URL',DATABASE_URL)
 
 print("=" * 60)
 print("🔍 DEBUG: Tables Alembic can see:")
