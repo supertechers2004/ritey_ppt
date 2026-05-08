@@ -173,6 +173,11 @@ def read_root(ppt: Ppt, db: Session = Depends(get_db), deps: tuple = Depends(get
                 "wait_time": wait_time
             }
         )
+    except Exception as e:
+        # Catch all other exceptions and return as 500 with details for debugging
+        import traceback
+        error_details = traceback.format_exc()
+        raise HTTPException(status_code=500, detail={"error": str(e), "traceback": error_details})
 
 @app.post('/ppt/')
 def generate_ppt(ppt: Ppt, deps: tuple = Depends(get_graph_deps), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
